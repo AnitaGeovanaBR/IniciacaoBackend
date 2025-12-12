@@ -1,4 +1,4 @@
-namespace CalculadoraApi.Models
+namespace API_Aula01.Models
 {
     public class Operacao
     {

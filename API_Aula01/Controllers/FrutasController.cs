@@ -7,7 +7,7 @@ namespace API_Aula01.Controllers
     {
         private static readonly string[] Frutas = new[]
         {
-            "Uva", "Banana", "Manga", "Caj·", "Pinha", "Lim„o", "MaÁ„"
+            "Uva", "Banana", "Manga", "Caj√∫", "Pinha", "Lim√£o", "Ma√ß√£"
         };
 
         private readonly ILogger<FrutasController> _logger;

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using CalculadoraApi.Models;
+using API_Aula01.Models;
 
-namespace CalculadoraApi.Controllers
+namespace API_Aula01.Controllers
 {
     [ApiController]
     [Route("calculadora")]
