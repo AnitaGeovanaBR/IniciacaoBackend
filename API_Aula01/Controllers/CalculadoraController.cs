@@ -4,6 +4,7 @@ using API_Aula01.Models;
 namespace API_Aula01.Controllers
 {
     [ApiController]
+    [Route("[controller]")]
     public class CalculadoraController : ControllerBase
     {
         private static readonly Operacao[] OperacoesDisponiveis = new Operacao[]
@@ -22,12 +23,46 @@ namespace API_Aula01.Controllers
         }
 
         [HttpGet]
-        [Route("calculadora/operacoes")]
+        [Route("operacoes")]
         public IEnumerable<Operacao> GetOperacoes()
         {
             _logger.LogInformation("Endpoint calculadora/operacoes acessado para retornar todas as operações.");
             
             return OperacoesDisponiveis;
+        }
+        [HttpPost]
+        [Route("calcular")]
+        public ActionResult<OperacaoResponse> Calcular([FromBody] OperacaoRequest request)
+        {
+            _logger.LogInformation("Endpoint calculadora/calcular acessado para calcular a operação.");
+            if (request == null)
+            {
+                return BadRequest(new { message = "Dados de entrada são obrugatórios." });
+            }
+            double resultado;
+
+            switch (request.Operacao)
+            {
+                case "+":
+                    resultado = request.PrimeiroNumero + request.SegundoNumero;
+                    break;
+                case "-":
+                    resultado = request.PrimeiroNumero - request.SegundoNumero;
+                    break;
+                case "*":
+                    resultado = request.PrimeiroNumero * request.SegundoNumero;
+                    break;
+                case "/":
+                    if (request.SegundoNumero == 0)
+                    {
+                        return BadRequest(new { message = "Divisão por zero não é permitida." });
+                    }
+                    resultado = request.PrimeiroNumero / request.SegundoNumero;
+                    break;
+                default:
+                    return BadRequest(new { message = "Operação inválida." });
+                }
+                return Ok(new OperacaoResponse { Resultado = resultado });
         }
     }
 }
